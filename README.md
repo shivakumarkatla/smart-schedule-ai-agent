@@ -10,12 +10,17 @@ This project turns those actions into a conversational workflow. Instead of manu
 
 ## 🏗️ Architecture
 
+The workflow is built in n8n around an AI Agent. Telegram acts as the conversational interface, while OpenAI provides the language model and the agent uses Google Calendar and Gmail as tools.
+
+### Workflow
+
 ```text
                          User
                           │
                           ▼
                     ┌───────────┐
                     │ Telegram  │
+                    │  Trigger  │
                     └─────┬─────┘
                           │
                           ▼
@@ -39,12 +44,16 @@ This project turns those actions into a conversational workflow. Instead of manu
                                 Telegram Reply
 ```
 
+### Workflow Screenshot
+
+![Smart Schedule n8n Workflow](architecture/n8n-workflow.png)
+
 ## ⚙️ How It Works
 
 1. The user sends a natural-language request through Telegram.
-2. The Telegram trigger passes the message to the n8n AI Agent.
+2. The Telegram Trigger passes the message to the n8n AI Agent.
 3. The OpenAI chat model interprets the request.
-4. Conversational memory maintains context across messages.
+4. Simple Memory maintains conversational context.
 5. The AI Agent selects the appropriate tool based on the request.
 6. Google Calendar creates an event when scheduling is requested.
 7. Gmail sends an email when an email action is requested.
@@ -131,7 +140,8 @@ smart-schedule-ai-agent/
 ├── README.md
 ├── .gitignore
 ├── architecture/
-│   └── architecture.md
+│   ├── architecture.md
+│   └── n8n-workflow.png
 ├── docs/
 │   └── setup.md
 ├── examples/
